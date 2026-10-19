@@ -1,15 +1,815 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="manifest" href="manifest.json">
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestro Último Año | Promo 2026</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    :root {
+      --pink: #ff6f91;
+      --purple: #7868e6;
+      --yellow: #ffd166;
+      --cream: #fffaf3;
+      --ink: #20213a;
+      --muted: #696b80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    /* BARRA DE NAVEGACIÓN */
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 7%;
+      background: rgba(255, 250, 243, 0.95);
+      border-bottom: 1px solid #eee;
+    }
+
+    .brand {
+      font-weight: 900;
+    }
+
+    .brand span {
+      color: var(--pink);
+    }
+
+    nav {
+      display: flex;
+      gap: 22px;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: var(--purple);
+    }
+
+    .menu-btn {
+      display: none;
+      border: none;
+      background: transparent;
+      font-size: 1.5rem;
+    }
+
+    /* PORTADA */
+
+    .hero {
+      min-height: 82vh;
+      padding: 75px 7%;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 42px;
+      background:
+        radial-gradient(circle at 82% 25%, #ffe0e8, transparent 28%),
+        radial-gradient(circle at 15% 85%, #e5e1ff, transparent 32%),
+        var(--cream);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 14px;
+      margin-bottom: 20px;
+      background: white;
+      border-radius: 30px;
+      color: #c94e71;
+      font-size: 0.82rem;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 6vw, 5.8rem);
+      line-height: 1;
+      letter-spacing: -3px;
+    }
+
+    h1 em {
+      color: var(--purple);
+      font-style: normal;
+    }
+
+    .hero p {
+      margin: 24px 0 30px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 560px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 20px;
+      border: none;
+      border-radius: 14px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: var(--purple);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: white;
+      border: 1px solid #ece8f5;
+    }
+
+    .hero-art {
+      min-height: 390px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .year-card {
+      width: min(100%, 390px);
+      aspect-ratio: 4 / 4.4;
+      border-radius: 34px;
+      padding: 30px;
+      color: white;
+      background: linear-gradient(145deg, #7868e6, #a99bff 55%, #ff9db4);
+      box-shadow: 0 28px 70px #7868e64a;
+      transform: rotate(3deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .year-card .small {
+      font-weight: bold;
+      letter-spacing: 2px;
+      font-size: 0.8rem;
+    }
+
+    .year-card strong {
+      font-size: clamp(4.5rem, 10vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: -5px;
+    }
+
+    .year-card .bottom {
+      font-size: 1.15rem;
+      font-weight: bold;
+      max-width: 200px;
+    }
+
+    .sticker {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      box-shadow: 0 10px 30px #20213a22;
+      font-size: 2rem;
+      width: 76px;
+      height: 76px;
+      background: var(--yellow);
+    }
+
+    .sticker.one {
+      top: 7%;
+      right: 0;
+    }
+
+    .sticker.two {
+      bottom: 8%;
+      left: 0;
+      background: white;
+    }
+
+    /* SECCIONES */
+
+    section {
+      padding: 85px 7%;
+    }
+
+    .section-head {
+      max-width: 680px;
+      margin-bottom: 36px;
+    }
+
+    .section-kicker {
+      color: #c94e71;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.1;
+      margin: 9px 0 13px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+    }
+
+    /* EVENTOS */
+
+    .events {
+      background: white;
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .event-card {
+      border: 1px solid #eeeaf5;
+      border-radius: 23px;
+      padding: 25px;
+      background: white;
+      transition: 0.25s;
+    }
+
+    .event-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px #26224c20;
+    }
+
+    .event-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 17px;
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      margin-bottom: 18px;
+      background: #fff0f4;
+    }
+
+    .event-card:nth-child(2) .event-icon,
+    .event-card:nth-child(5) .event-icon {
+      background: #fff5d9;
+    }
+
+    .event-card:nth-child(3) .event-icon,
+    .event-card:nth-child(6) .event-icon {
+      background: #eeebff;
+    }
+
+    .event-card h3 {
+      margin-bottom: 7px;
+    }
+
+    .event-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .event-date {
+      display: inline-block;
+      margin-top: 16px;
+      color: var(--purple);
+      font-size: 0.82rem;
+      font-weight: bold;
+    }
+
+    /* CUENTA REGRESIVA */
+
+    .countdown-section {
+      background: #272544;
+      color: white;
+      text-align: center;
+    }
+
+    .countdown-section .section-kicker {
+      color: var(--yellow);
+    }
+
+    .countdown-section .section-head {
+      margin: 0 auto 28px;
+    }
+
+    .countdown-section .section-head p {
+      color: #cfcee0;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 30px 0 22px;
+    }
+
+    .time-box {
+      width: 105px;
+      padding: 17px 10px;
+      border-radius: 18px;
+      background: #ffffff12;
+      border: 1px solid #ffffff20;
+    }
+
+    .time-box strong {
+      display: block;
+      font-size: 2.4rem;
+      color: var(--yellow);
+      line-height: 1.1;
+    }
+
+    .time-box span {
+      color: #cfcee0;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .date-setting {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      color: #cfcee0;
+    }
+
+    .date-setting input,
+    .date-setting button {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    .date-setting button {
+      background: var(--pink);
+      color: white;
+      font-weight: bold;
+    }
+
+    /* GALERÍA */
+
+    .gallery {
+      background: #f5f2ff;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .memory {
+      min-height: 190px;
+      padding: 18px;
+      border-radius: 22px;
+      display: flex;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: white;
+      font-weight: bold;
+      background: linear-gradient(145deg, #ff8eaa, #ffced8);
+    }
+
+    .memory::before {
+      content: attr(data-emoji);
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 4.5rem;
+      opacity: 0.85;
+    }
+
+    .memory span {
+      position: relative;
+      z-index: 1;
+      background: #20213a88;
+      padding: 5px 9px;
+      border-radius: 8px;
+    }
+
+    .memory:nth-child(2) { background: linear-gradient(145deg, #7566dc, #c5baff); }
+    .memory:nth-child(3) { background: linear-gradient(145deg, #eeb64c, #ffe9a6); color: #54421b; }
+    .memory:nth-child(4) { background: linear-gradient(145deg, #59b8b1, #b6eee2); color: #174c49; }
+    .memory:nth-child(5) { background: linear-gradient(145deg, #f18c63, #ffd1b7); color: #63351e; }
+    .memory:nth-child(6) { background: linear-gradient(145deg, #4c77bd, #b9d4ff); }
+    .memory:nth-child(7) { background: linear-gradient(145deg, #cb79b7, #f5c5e9); }
+    .memory:nth-child(8) { background: linear-gradient(145deg, #52516d, #a7a4c8); }
+
+    /* FRASE FINAL */
+
+    .quote {
+      background: white;
+      text-align: center;
+    }
+
+    blockquote {
+      max-width: 850px;
+      margin: 0 auto;
+      font-size: clamp(1.6rem, 3vw, 2.7rem);
+      font-weight: bold;
+      line-height: 1.25;
+    }
+
+    blockquote span {
+      color: var(--pink);
+    }
+
+    .quote small {
+      display: block;
+      margin-top: 22px;
+      color: var(--muted);
+    }
+
+    footer {
+      background: #272544;
+      color: white;
+      padding: 32px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    footer p {
+      color: #cfcee0;
+      font-size: 0.9rem;
+    }
+
+    .back-top {
+      color: var(--yellow);
+      font-weight: bold;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translate(-50%, 120px);
+      opacity: 0;
+      background: var(--ink);
+      color: white;
+      padding: 13px 20px;
+      border-radius: 13px;
+      transition: 0.3s;
+      z-index: 50;
+      text-align: center;
+      max-width: 90%;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .actions {
+        justify-content: center;
+      }
+
+      .hero-art {
+        min-height: 340px;
+      }
+
+      .year-card {
+        max-width: 320px;
+      }
+
+      .event-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar { padding: 13px 5%; }
+      .menu-btn { display: block; }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--cream);
+        padding: 18px 5%;
+        flex-direction: column;
+        gap: 14px;
+        border-bottom: 1px solid #eee;
+      }
+
+      nav.open { display: flex; }
+      .hero { padding: 58px 5% 65px; }
+      h1 { letter-spacing: -2px; }
+      section { padding: 65px 5%; }
+      .event-grid { grid-template-columns: 1fr; }
+      .gallery-grid { gap: 10px; }
+      .memory { min-height: 150px; padding: 13px; font-size: 0.9rem; }
+      .time-box { width: 76px; padding: 13px 5px; }
+      .time-box strong { font-size: 1.8rem; }
+      .year-card { width: 270px; }
+      .hero-art { min-height: 320px; }
+      footer { padding: 28px 5%; }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Ipet N° 411</h1>
-    
-    
+  <header class="topbar">
+    <a class="brand" href="#inicio">PROMO<span> 2026</span> ✦</a>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú"
+      aria-expanded="false">☰</button>
+
+    <nav id="nav">
+      <a href="#inicio">Inicio</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#cuenta">Cuenta regresiva</a>
+      <a href="#recuerdos">Recuerdos</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div>
+        <span class="eyebrow">Una etapa que no se repite ✨</span>
+        <h1>Nuestro último año, <em>mil recuerdos.</em></h1>
+        <p>
+          Un año de risas, nervios, aventuras y momentos que vamos
+          a llevar siempre con nosotros. ¡Vivamos cada segundo de esta promo!
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="#eventos">Descubrir los eventos →</a>
+          <a class="btn btn-secondary" href="#recuerdos">Ver nuestros recuerdos ♡</a>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="year-card">
+          <span class="small">LA PROMO QUE DEJA HUELLA</span>
+          <strong>20<br>26</strong>
+          <span class="bottom">No es el final, es el comienzo de algo nuevo.</span>
+        </div>
+        <span class="sticker one">🎓</span>
+        <span class="sticker two">♡</span>
+      </div>
+    </section>
+
+    <section class="events" id="eventos">
+      <div class="section-head">
+        <span class="section-kicker">Nuestra agenda</span>
+        <h2>Momentos para recordar</h2>
+        <p>
+          Cada actividad tiene algo especial. Estos son algunos de los eventos
+          que hacen inolvidable el último año de secundaria.
+        </p>
+      </div>
+
+      <div class="event-grid">
+        <article class="event-card">
+          <div class="event-icon">🎉</div>
+          <h3>Bienvenida a la promo</h3>
+          <p>Arrancamos el año con energía, ideas nuevas y muchas ganas de compartirlo juntos.</p>
+          <span class="event-date">MARZO · COMIENZO</span>
+        </article>
+
+        <article class="event-card">
+          <div class="event-icon">👕</div>
+          <h3>Buzos de egresados</h3>
+          <p>Diseñamos algo que nos identifica y que nos va a recordar siempre a nuestro curso.</p>
+          <span class="event-date">DURANTE EL AÑO</span>
+        </article>
+
+        <article class="event-card">
+          <div class="event-icon">🚌</div>
+          <h3>Viaje con el curso</h3>
+          <p>Una aventura para salir de la rutina, conocer lugares y sumar anécdotas compartidas.</p>
+          <span class="event-date">¡A PREPARAR LAS VALIJAS!</span>
+        </article>
+
+        <article class="event-card">
+          <div class="event-icon">🎶</div>
+          <h3>Fiestas y juntadas</h3>
+          <p>Música, baile, fotos y esas noches que después vamos a recordar entre carcajadas.</p>
+          <span class="event-date">TODO EL AÑO</span>
+        </article>
+
+        <article class="event-card">
+          <div class="event-icon">🏫</div>
+          <h3>Último primer día</h3>
+          <p>Celebramos el inicio de nuestro último recorrido escolar con toda la emoción de la promo.</p>
+          <span class="event-date">UN DÍA ESPECIAL</span>
+        </article>
+
+        <article class="event-card">
+          <div class="event-icon">🎓</div>
+          <h3>Graduación</h3>
+          <p>El cierre de una etapa llena de aprendizajes, amistades y personas que dejaron su marca.</p>
+          <span class="event-date">EL GRAN FINAL</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="countdown-section" id="cuenta">
+      <div class="section-head">
+        <span class="section-kicker">Se acerca el gran día</span>
+        <h2>Cuenta regresiva para la graduación</h2>
+        <p>Elegí la fecha de tu graduación y empezá a contar los días que faltan.</p>
+      </div>
+
+      <div class="countdown" aria-live="polite">
+        <div class="time-box"><strong id="days">---</strong><span>Días</span></div>
+        <div class="time-box"><strong id="hours">--</strong><span>Horas</span></div>
+        <div class="time-box"><strong id="minutes">--</strong><span>Minutos</span></div>
+        <div class="time-box"><strong id="seconds">--</strong><span>Segundos</span></div>
+      </div>
+
+      <div class="date-setting">
+        <label for="gradDate">Fecha de graduación:</label>
+        <input type="date" id="gradDate" value="2026-12-15">
+        <button id="setDate">Actualizar fecha</button>
+      </div>
+    </section>
+
+    <section class="gallery" id="recuerdos">
+      <div class="section-head">
+        <span class="section-kicker">Nuestra historia</span>
+        <h2>Pequeños momentos, grandes recuerdos</h2>
+        <p>
+          Este espacio es para las fotos que cuentan nuestra historia.
+          Podés reemplazar estas tarjetas por imágenes reales del curso.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="memory" data-emoji="📸"><span>Las fotos del curso</span></div>
+        <div class="memory" data-emoji="💜"><span>Amistades que quedan</span></div>
+        <div class="memory" data-emoji="🎉"><span>Días de festejo</span></div>
+        <div class="memory" data-emoji="✨"><span>Momentos únicos</span></div>
+        <div class="memory" data-emoji="🚌"><span>Aventuras compartidas</span></div>
+        <div class="memory" data-emoji="😂"><span>Risas en el aula</span></div>
+        <div class="memory" data-emoji="🎵"><span>Nuestra canción</span></div>
+        <div class="memory" data-emoji="🎓"><span>La última etapa</span></div>
+      </div>
+    </section>
+
+    <section class="quote">
+      <blockquote>
+        “No vamos a recordar cada día de clases, pero sí
+        <span>cómo nos hicimos sentir</span> durante todos ellos.”
+      </blockquote>
+      <small>Promo 2026 · Una historia que siempre va a ser nuestra ♡</small>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Promo 2026 ✦</strong>
+      <p>Hecho con cariño para recordar nuestro último año.</p>
+    </div>
+    <a class="back-top" href="#inicio">Volver arriba ↑</a>
+  </footer>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    // Menú para celulares
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.getElementById("nav");
+
+    menuBtn.addEventListener("click", () => {
+      const abierto = nav.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(abierto));
+      menuBtn.textContent = abierto ? "✕" : "☰";
+    });
+
+    nav.querySelectorAll("a").forEach(enlace => {
+      enlace.addEventListener("click", () => {
+        nav.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.textContent = "☰";
+      });
+    });
+
+    // Mensajes emergentes
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function mostrarMensaje(mensaje) {
+      toast.textContent = mensaje;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2800);
+    }
+
+    // Cuenta regresiva
+    const fechaInput = document.getElementById("gradDate");
+    let fechaGraduacion = new Date(fechaInput.value + "T00:00:00");
+
+    function actualizarCuenta() {
+      const ahora = new Date();
+      const diferencia = fechaGraduacion.getTime() - ahora.getTime();
+
+      if (Number.isNaN(fechaGraduacion.getTime())) {
+        ["days", "hours", "minutes", "seconds"].forEach(id => {
+          document.getElementById(id).textContent = "—";
+        });
+        return;
+      }
+
+      if (diferencia <= 0) {
+        ["days", "hours", "minutes", "seconds"].forEach(id => {
+          document.getElementById(id).textContent = "0";
+        });
+        return;
+      }
+
+      document.getElementById("days").textContent =
+        Math.floor(diferencia / 86400000);
+
+      document.getElementById("hours").textContent =
+        Math.floor((diferencia % 86400000) / 3600000);
+
+      document.getElementById("minutes").textContent =
+        Math.floor((diferencia % 3600000) / 60000);
+
+      document.getElementById("seconds").textContent =
+        Math.floor((diferencia % 60000) / 1000);
+    }
+
+    document.getElementById("setDate").addEventListener("click", () => {
+      if (!fechaInput.value) {
+        mostrarMensaje("Elegí una fecha para la graduación.");
+        return;
+      }
+
+      fechaGraduacion = new Date(fechaInput.value + "T00:00:00");
+      actualizarCuenta();
+      mostrarMensaje("¡Fecha de graduación actualizada! 🎓");
+    });
+
+    actualizarCuenta();
+    setInterval(actualizarCuenta, 1000);
+  </script>
 </body>
 </html>
